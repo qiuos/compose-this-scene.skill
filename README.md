@@ -1,50 +1,50 @@
-# Compose This Scene
+# 这个场景怎么拍 · Compose This Scene
 
-A photography composition skill for Claude Code. Analyze any photo, propose 3–5 distinct composition directions, and render visual crop/annotation previews.
+一个摄影构图技能，用于 Claude Code。分析任意照片，提出 3–5 种不同构图方向，并生成可视化的裁剪预览和标注图。
 
-## What It Does
+## 功能
 
-Given a photo, this skill:
+给定一张照片，本技能会：
 
-1. Inspects the scene — subject, light, geometry, depth, color, timing, mood
-2. Proposes 3–5 composition options with different intents (classic thirds, negative space, dramatic close crop, leading-line geometry, symmetry, cinematic wide, etc.)
-3. Renders crop previews, annotated originals with guide overlays, and a contact sheet
-4. Returns a concise critique for each option: why it works, emotional effect, style reference, and shooting tips
+1. 分析画面——主体、光线、几何、纵深、色彩、时机、情绪
+2. 提出 3–5 种构图方案，各有不同意图（经典三分法、留白、戏剧性近裁、引导线几何、对称、电影宽幅等）
+3. 渲染裁剪预览、带辅助线标注的原图，以及缩略图总览
+4. 为每个方案给出简明点评：为何有效、情绪效果、风格参考、拍摄建议
 
-## Prompt Triggers
+## 触发提示词
 
-Use this skill when the user asks:
+当用户说以下内容时使用本技能：
 
 - "这个场景怎么拍" / "这张照片怎么构图" / "帮我裁一下"
-- How to shoot, crop, frame, recompose, or improve a scene/photo
-- Any request for composition ideas, annotated images, or crop previews
+- 询问如何拍摄、裁剪、取景、重新构图或改进场景/照片
+- 任何关于构图建议、标注图片或裁剪预览的请求
 
-## Usage
+## 使用方式
 
-### In Claude Code
+### 在 Claude Code 中
 
-Install as a skill, then simply upload or reference a photo and ask for composition advice.
+安装为技能后，上传或引用一张照片，然后询问构图建议即可。
 
-### Rendering Previews
+### 渲染预览
 
-Create a composition plan JSON:
+创建构图方案 JSON：
 
 ```json
 {
   "variants": [
     {
       "id": "classic-thirds",
-      "title": "Classic thirds balance",
+      "title": "经典三分法",
       "crop": [0.05, 0.02, 0.88, 0.96],
       "guides": ["thirds"],
-      "focus_points": [{"x": 0.34, "y": 0.45, "label": "subject"}],
-      "caption": "Place the subject near a thirds intersection and remove edge clutter."
+      "focus_points": [{"x": 0.34, "y": 0.45, "label": "主体"}],
+      "caption": "将主体放在三分线交叉点附近，去除边缘杂乱元素。"
     }
   ]
 }
 ```
 
-Run the rendering script:
+运行渲染脚本：
 
 ```bash
 python3 scripts/make_composition_variants.py \
@@ -53,28 +53,28 @@ python3 scripts/make_composition_variants.py \
   --out-dir /path/to/output
 ```
 
-### Output
+### 输出
 
-The script generates:
+脚本会生成：
 
-| File | Description |
-|------|-------------|
-| `*_crop.jpg` | Cropped preview for each composition |
-| `*_annotated.jpg` | Original image with dim overlay, crop box, guide overlays, and focus points |
-| `*_contact_sheet.jpg` | Grid summary of all variants |
-| `composition_outputs.json` | Machine-readable output paths and metadata |
+| 文件 | 说明 |
+|------|------|
+| `*_crop.jpg` | 每种构图的裁剪预览 |
+| `*_annotated.jpg` | 原图加暗化蒙版、裁剪框、辅助线和焦点标注 |
+| `*_contact_sheet.jpg` | 所有方案的缩略图总览 |
+| `composition_outputs.json` | 机器可读的输出路径和元数据 |
 
-## Composition Guides
+## 构图辅助线
 
-Supported guide overlays: `thirds`, `center`, `crosshair`, `diagonal`, `diagonals`, `golden`, `golden_spiral`
+支持的辅助线类型：`thirds`（三分线）、`center`（中心线）、`crosshair`（十字线）、`diagonal` / `diagonals`（对角线）、`golden` / `golden_spiral`（黄金分割）
 
-Crop coordinates use normalized `[left, top, right, bottom]` values from `0.0` to `1.0` relative to the original image.
+裁剪坐标使用归一化 `[left, top, right, bottom]` 值，范围 `0.0` 到 `1.0`，相对于原图尺寸。
 
-## Dependencies
+## 依赖
 
 - Python 3.10+
-- Pillow (`pip install Pillow`)
+- Pillow（`pip install Pillow`）
 
-## License
+## 许可证
 
 MIT
