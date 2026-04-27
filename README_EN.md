@@ -1,6 +1,6 @@
 # Compose This Scene
 
-A photography composition skill for Claude Code. Analyze any photo, propose 3–5 distinct composition directions, and render visual crop/annotation previews.
+A photography composition skill. Analyze any photo, propose 3–5 distinct composition directions, and render visual crop/annotation previews.
 
 ## What It Does
 
@@ -20,10 +20,6 @@ Use this skill when the user asks:
 - Any request for composition ideas, annotated images, or crop previews
 
 ## Usage
-
-### In Claude Code
-
-Install as a skill, then simply upload or reference a photo and ask for composition advice.
 
 ### Rendering Previews
 
